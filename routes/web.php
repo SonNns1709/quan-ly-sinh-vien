@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TrangChuController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TrangChuController::class, 'index'])->name('trang-chu');
+Route::get('/gioi-thieu', [TrangChuController::class, 'gioiThieu'])->name('gioi-thieu');
