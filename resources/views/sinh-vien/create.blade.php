@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('sinh-vien.store') }}">
+    <form method="POST" action="{{ route('sinh-vien.store') }}" enctype="multipart/form-data">
         @csrf
 
         <label>MSSV</label><br>
@@ -45,6 +45,9 @@
                 <option value="{{ $lop->id }}">{{ $lop->ten_lop }}</option>
             @endforeach
         </select><br><br>
+
+        <label>Ảnh đại diện</label><br>
+        <input type="file" name="anh_dai_dien"><br><br>
 
         <button type="submit">Lưu</button>
     </form>
