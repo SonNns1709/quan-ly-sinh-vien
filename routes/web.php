@@ -26,5 +26,3 @@ Route::middleware('auth')->group(function () {
     Route::resource('lop-hoc', LopHocController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
-
-// dong nay la loi co y
