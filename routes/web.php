@@ -1,6 +1,5 @@
 <?php
 
-// Phien ban A
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SinhVienController;
 use App\Http\Controllers\TrangChuController;
