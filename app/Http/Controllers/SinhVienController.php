@@ -8,11 +8,20 @@ use Illuminate\Http\Request;
 
 class SinhVienController extends Controller
 {
-    public function index()
+     public function index(Request $request)
     {
-        $sinhViens = SinhVien::with('lopHoc')->latest()->get();
+        $tuKhoa = $request->query('tu_khoa');
 
-        return view('sinh-vien.index', compact('sinhViens'));
+        $sinhViens = SinhVien::with('lopHoc')
+            ->when($tuKhoa, function ($query, $tuKhoa) {
+                $query->where('ho_ten', 'like', "%{$tuKhoa}%")
+                    ->orWhere('mssv', 'like', "%{$tuKhoa}%");
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('sinh-vien.index', compact('sinhViens', 'tuKhoa'));
     }
 
     public function create()
@@ -22,7 +31,7 @@ class SinhVienController extends Controller
         return view('sinh-vien.create', compact('lopHocs'));
     }
 
-    public function store(Request $request)
+       public function store(Request $request)
     {
         $validated = $request->validate([
             'mssv' => 'required|string|unique:sinh_viens,mssv',
@@ -33,7 +42,12 @@ class SinhVienController extends Controller
             'sdt' => 'nullable|string|max:20',
             'dia_chi' => 'nullable|string',
             'lop_hoc_id' => 'required|exists:lop_hocs,id',
+            'anh_dai_dien' => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('anh_dai_dien')) {
+            $validated['anh_dai_dien'] = $request->file('anh_dai_dien')->store('sinh-vien', 'public');
+        }
 
         SinhVien::create($validated);
 
@@ -50,7 +64,7 @@ class SinhVienController extends Controller
         ]);
     }
 
-    public function update(Request $request, SinhVien $sinh_vien)
+      public function update(Request $request, SinhVien $sinh_vien)
     {
         $validated = $request->validate([
             'mssv' => 'required|string|unique:sinh_viens,mssv,' . $sinh_vien->id,
@@ -61,7 +75,12 @@ class SinhVienController extends Controller
             'sdt' => 'nullable|string|max:20',
             'dia_chi' => 'nullable|string',
             'lop_hoc_id' => 'required|exists:lop_hocs,id',
+            'anh_dai_dien' => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('anh_dai_dien')) {
+            $validated['anh_dai_dien'] = $request->file('anh_dai_dien')->store('sinh-vien', 'public');
+        }
 
         $sinh_vien->update($validated);
 

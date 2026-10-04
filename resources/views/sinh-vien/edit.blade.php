@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('sinh-vien.update', $sinhVien) }}">
+    <form method="POST" action="{{ route('sinh-vien.update', $sinhVien) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -46,6 +46,12 @@
                 <option value="{{ $lop->id }}" @selected($lop->id === $sinhVien->lop_hoc_id)>{{ $lop->ten_lop }}</option>
             @endforeach
         </select><br><br>
+
+        <label>Ảnh đại diện hiện tại</label><br>
+        @if ($sinhVien->anh_dai_dien)
+            <img src="{{ asset('storage/' . $sinhVien->anh_dai_dien) }}" width="80"><br>
+        @endif
+        <input type="file" name="anh_dai_dien"><br><br>
 
         <button type="submit">Cập nhật</button>
     </form>

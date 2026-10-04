@@ -11,10 +11,16 @@
 
     <p><a href="{{ route('sinh-vien.create') }}">+ Thêm sinh viên</a></p>
 
+    <form method="GET" action="{{ route('sinh-vien.index') }}">
+        <input type="text" name="tu_khoa" value="{{ $tuKhoa }}" placeholder="Tìm theo tên hoặc MSSV">
+        <button type="submit">Tìm</button>
+    </form>
+
     <table border="1" cellpadding="8">
         <thead>
             <tr>
                 <th>MSSV</th>
+                <th>Ảnh</th>
                 <th>Họ tên</th>
                 <th>Lớp</th>
                 <th>Email</th>
@@ -25,6 +31,13 @@
             @foreach ($sinhViens as $sv)
                 <tr>
                     <td>{{ $sv->mssv }}</td>
+                    <td>
+                        @if ($sv->anh_dai_dien)
+                            <img src="{{ asset('storage/' . $sv->anh_dai_dien) }}" width="50">
+                        @else
+                            —
+                        @endif
+                    </td>
                     <td>{{ $sv->ho_ten }}</td>
                     <td>{{ $sv->lopHoc->ten_lop ?? '—' }}</td>
                     <td>{{ $sv->email }}</td>
@@ -40,4 +53,6 @@
             @endforeach
         </tbody>
     </table>
+
+    {{ $sinhViens->links() }}
 @endsection
