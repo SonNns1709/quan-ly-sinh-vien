@@ -3,11 +3,11 @@
 @section('title', 'Sửa Lớp học')
 
 @section('content')
-    <h1>Sửa Lớp học</h1>
+    <h1 class="mb-4">Sửa Lớp học</h1>
 
     @if ($errors->any())
-        <div style="color: red">
-            <ul>
+        <div class="alert alert-danger">
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -18,16 +18,18 @@
     <form method="POST" action="{{ route('lop-hoc.update', $lopHoc) }}">
         @csrf
         @method('PUT')
-
-        <label>Mã lớp</label><br>
-        <input type="text" name="ma_lop" value="{{ old('ma_lop', $lopHoc->ma_lop) }}"><br>
-
-        <label>Tên lớp</label><br>
-        <input type="text" name="ten_lop" value="{{ old('ten_lop', $lopHoc->ten_lop) }}"><br>
-
-        <label>Khoa</label><br>
-        <input type="text" name="khoa" value="{{ old('khoa', $lopHoc->khoa) }}"><br><br>
-
-        <button type="submit">Cập nhật</button>
+        <div class="mb-3">
+            <label class="form-label">Mã lớp</label>
+            <input type="text" name="ma_lop" value="{{ old('ma_lop', $lopHoc->ma_lop) }}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tên lớp</label>
+            <input type="text" name="ten_lop" value="{{ old('ten_lop', $lopHoc->ten_lop) }}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Khoa</label>
+            <input type="text" name="khoa" value="{{ old('khoa', $lopHoc->khoa) }}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
     </form>
 @endsection

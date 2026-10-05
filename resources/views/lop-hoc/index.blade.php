@@ -3,15 +3,15 @@
 @section('title', 'Danh sách Lớp học')
 
 @section('content')
-    <h1>Danh sách Lớp học</h1>
+    <h1 class="mb-4">Danh sách Lớp học</h1>
 
     @if (session('success'))
-        <p style="color: green">{{ session('success') }}</p>
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <p><a href="{{ route('lop-hoc.create') }}">+ Thêm lớp học</a></p>
+    <a href="{{ route('lop-hoc.create') }}" class="btn btn-primary mb-3">+ Thêm lớp học</a>
 
-    <table border="1" cellpadding="8">
+    <table class="table table-striped table-bordered align-middle">
         <thead>
             <tr>
                 <th>Mã lớp</th>
@@ -29,11 +29,11 @@
                     <td>{{ $lop->khoa }}</td>
                     <td>{{ $lop->sinh_viens_count }}</td>
                     <td>
-                        <a href="{{ route('lop-hoc.edit', $lop) }}">Sửa</a>
-                        <form method="POST" action="{{ route('lop-hoc.destroy', $lop) }}" style="display:inline" onsubmit="return confirm('Xoá lớp này? Toàn bộ sinh viên trong lớp cũng sẽ bị xoá!')">
+                        <a href="{{ route('lop-hoc.edit', $lop) }}" class="btn btn-sm btn-outline-primary">Sửa</a>
+                        <form method="POST" action="{{ route('lop-hoc.destroy', $lop) }}" class="d-inline" onsubmit="return confirm('Xoá lớp này? Toàn bộ sinh viên trong lớp cũng sẽ bị xoá!')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Xoá</button>
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Xoá</button>
                         </form>
                     </td>
                 </tr>

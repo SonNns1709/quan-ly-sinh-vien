@@ -3,13 +3,29 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <h1>Dashboard</h1>
+    <h1 class="mb-4">Dashboard</h1>
 
-    <p>Tổng số sinh viên: <strong>{{ $tongSinhVien }}</strong></p>
-    <p>Tổng số lớp học: <strong>{{ $tongLopHoc }}</strong></p>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng số sinh viên</h5>
+                    <p class="card-text fs-2">{{ $tongSinhVien }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng số lớp học</h5>
+                    <p class="card-text fs-2">{{ $tongLopHoc }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <h2>Số sinh viên theo từng lớp</h2>
-    <table border="1" cellpadding="8">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Lớp</th>
